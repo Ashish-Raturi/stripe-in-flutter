@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Stripe Subscription in flutter/code/step_01/build/google_sign_in_android/intermediates/res/merged/debug/drawable-watch-v20/common_google_signin_btn_text_light_normal.xml",
+        "source": "/Users/ashishraturi/.gradle/caches/transforms-2/files-2.1/1148dab9f712c13e875b23d15d35e427/jetified-play-services-auth-20.0.1/res/drawable-watch-v20/common_google_signin_btn_text_light_normal.xml"
+    },
+    {
+        "merged": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Stripe Subscription in flutter/code/step_01/build/google_sign_in_android/intermediates/res/merged/debug/drawable-watch-v20/common_google_signin_btn_text_disabled.xml",
+        "source": "/Users/ashishraturi/.gradle/caches/transforms-2/files-2.1/1148dab9f712c13e875b23d15d35e427/jetified-play-services-auth-20.0.1/res/drawable-watch-v20/common_google_signin_btn_text_disabled.xml"
+    },
+    {
+        "merged": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Stripe Subscription in flutter/code/step_01/build/google_sign_in_android/intermediates/res/merged/debug/drawable-watch-v20/common_google_signin_btn_text_dark_normal.xml",
+        "source": "/Users/ashishraturi/.gradle/caches/transforms-2/files-2.1/1148dab9f712c13e875b23d15d35e427/jetified-play-services-auth-20.0.1/res/drawable-watch-v20/common_google_signin_btn_text_dark_normal.xml"
+    }
+]
