@@ -1,0 +1,6 @@
+io/flutter/plugins/firebase/functions/FlutterFirebaseFunctionsPlugin.java
+ io.flutter.plugins.firebase.functions.FlutterFirebaseFunctionsPlugin
+io/flutter/plugins/firebase/functions/BuildConfig.java
+ io.flutter.plugins.firebase.functions.BuildConfig
+io/flutter/plugins/firebase/functions/FlutterFirebaseAppRegistrar.java
+ io.flutter.plugins.firebase.functions.FlutterFirebaseAppRegistrar
