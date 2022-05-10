@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stripe/checkout_page.dart';
 import 'package:stripe/color.dart';
+import 'package:stripe/customer_portal.dart';
 import 'package:stripe/service/stripe_data.dart';
 import 'package:stripe/service/user_db_service.dart';
 
@@ -16,7 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late StripeData stripeData;
-
+  late SubscriptionStatus subscriptionStatus;
   bool loadingPayment = false;
   loading(String msg) {
     return Scaffold(
@@ -57,44 +59,63 @@ class _HomePageState extends State<HomePage> {
 
                 if (loadingPayment) return loading('Processing payment...');
 
-                return Scaffold(
-                  backgroundColor: c2,
-                  appBar: AppBar(
-                    title: Text(
-                      'Hi, ${userData.username}',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    backgroundColor: c2,
-                    elevation: 0,
-                    actions: [
-                      TextButton(
-                          onPressed: () async {
-                            await FirebaseAuth.instance.signOut();
-                          },
-                          child: Text('Logout'))
-                    ],
-                  ),
-                  body: Container(
-                    alignment: Alignment.center,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 30,
+                return StreamBuilder<SubscriptionStatus>(
+                    stream:
+                        UserDbService(uid: widget.uid, stripeData: stripeData)
+                            .checkSubscriptionIsActive,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData == false) {
+                        return loading('Checking Subscription Status...');
+                      }
+
+                      subscriptionStatus = snapshot.data!;
+                      return Scaffold(
+                        backgroundColor: c2,
+                        appBar: AppBar(
+                          title: Text(
+                            'Hi, ${userData.username}',
+                            style: TextStyle(color: Colors.black),
                           ),
-                          monthlySubTile(),
-                          SizedBox(
-                            height: 10,
+                          backgroundColor: c2,
+                          elevation: 0,
+                          actions: [
+                            TextButton(
+                                onPressed: () async {
+                                  await FirebaseAuth.instance.signOut();
+                                },
+                                child: Text('Logout'))
+                          ],
+                        ),
+                        body: Container(
+                          alignment: Alignment.center,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                if (subscriptionStatus.subIsActive == false ||
+                                    (subscriptionStatus.subIsActive &&
+                                        subscriptionStatus.activePriceId ==
+                                            stripeData.sub1priceId))
+                                  monthlySubTile(),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                if (subscriptionStatus.subIsActive == false ||
+                                    (subscriptionStatus.subIsActive &&
+                                        subscriptionStatus.activePriceId ==
+                                            stripeData.sub2priceId))
+                                  yearlySubTile(),
+                                SizedBox(
+                                  height: 40,
+                                ),
+                              ],
+                            ),
                           ),
-                          yearlySubTile(),
-                          SizedBox(
-                            height: 40,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
+                        ),
+                      );
+                    });
               });
         });
   }
@@ -179,76 +200,95 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                width: 180,
-                height: 40,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.white),
-                    onPressed: () async {
-                      setState(() {
-                        loadingPayment = true;
-                      });
-                      DocumentReference docRef = await FirebaseFirestore
-                          .instance
-                          .collection('users')
-                          .doc(widget.uid)
-                          .collection('checkout_sessions')
-                          .add({
-                        'price': stripeData.sub1priceId,
-                        'success_url': 'https://success.com',
-                        'cancel_url': 'https://cancel.com',
-                      });
+              if (subscriptionStatus.subIsActive == false)
+                SizedBox(
+                  width: 180,
+                  height: 40,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.white),
+                      onPressed: () async {
+                        setState(() {
+                          loadingPayment = true;
+                        });
+                        DocumentReference docRef = await FirebaseFirestore
+                            .instance
+                            .collection('users')
+                            .doc(widget.uid)
+                            .collection('checkout_sessions')
+                            .add({
+                          'price': stripeData.sub1priceId,
+                          'success_url': 'https://success.com',
+                          'cancel_url': 'https://cancel.com',
+                        });
 
-                      docRef.snapshots().listen((ds) async {
-                        if (ds.exists) {
-                          //checking error
-                          var error;
+                        docRef.snapshots().listen((ds) async {
+                          if (ds.exists) {
+                            //checking error
+                            var error;
 
-                          try {
-                            error = ds.get('error');
-                          } catch (e) {
-                            error = null;
-                          }
+                            try {
+                              error = ds.get('error');
+                            } catch (e) {
+                              error = null;
+                            }
 
-                          if (error != null) {
-                            //we got an error
-                            print(error);
+                            if (error != null) {
+                              //we got an error
+                              print(error);
 
-                            setState(() {
-                              loadingPayment = false;
-                            });
-                          } else {
-                            var url = ds.get('url');
-
-                            var res = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        CheckoutPage(url: url)));
-
-                            if (res == 'sucess') {
-                              print('payment completed');
                               setState(() {
                                 loadingPayment = false;
                               });
-                              //payment completed
                             } else {
-                              print('payment failed');
-                              //payment failed
-                              setState(() {
-                                loadingPayment = false;
-                              });
+                              var url = ds.get('url');
+
+                              var res = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CheckoutPage(url: url)));
+
+                              if (res == 'sucess') {
+                                print('payment completed');
+                                setState(() {
+                                  loadingPayment = false;
+                                });
+                                //payment completed
+                              } else {
+                                print('payment failed');
+                                //payment failed
+                                setState(() {
+                                  loadingPayment = false;
+                                });
+                              }
                             }
                           }
-                        }
-                      });
-                    },
-                    child: Text(
-                      'Choose Plan',
-                      style: TextStyle(
-                          color: c1, fontWeight: FontWeight.w900, fontSize: 18),
+                        });
+                      },
+                      child: Text(
+                        'Choose Plan',
+                        style: TextStyle(
+                            color: c1,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 18),
+                      )),
+                ),
+              if (subscriptionStatus.subIsActive)
+                SizedBox(
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.white),
+                      child: Text(
+                        'Manage Subcription',
+                        style: TextStyle(
+                            color: c1,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 18),
+                      ),
+                      onPressed: () {
+                        customerPortal();
+                      },
                     )),
-              ),
               SizedBox(
                 height: 40,
               ),
@@ -334,78 +374,95 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                width: 180,
-                height: 40,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: c1),
-                    onPressed: () async {
-                      setState(() {
-                        loadingPayment = true;
-                      });
-                      DocumentReference docRef = await FirebaseFirestore
-                          .instance
-                          .collection('users')
-                          .doc(widget.uid)
-                          .collection('checkout_sessions')
-                          .add({
-                        'price': stripeData.sub2priceId,
-                        'success_url': 'https://success.com',
-                        'cancel_url': 'https://cancel.com',
-                      });
+              if (subscriptionStatus.subIsActive == false)
+                SizedBox(
+                  width: 180,
+                  height: 40,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: c1),
+                      onPressed: () async {
+                        setState(() {
+                          loadingPayment = true;
+                        });
+                        DocumentReference docRef = await FirebaseFirestore
+                            .instance
+                            .collection('users')
+                            .doc(widget.uid)
+                            .collection('checkout_sessions')
+                            .add({
+                          'price': stripeData.sub2priceId,
+                          'success_url': 'https://success.com',
+                          'cancel_url': 'https://cancel.com',
+                        });
 
-                      docRef.snapshots().listen((ds) async {
-                        if (ds.exists) {
-                          //checking error
-                          var error;
+                        docRef.snapshots().listen((ds) async {
+                          if (ds.exists) {
+                            //checking error
+                            var error;
 
-                          try {
-                            error = ds.get('error');
-                          } catch (e) {
-                            error = null;
-                          }
+                            try {
+                              error = ds.get('error');
+                            } catch (e) {
+                              error = null;
+                            }
 
-                          if (error != null) {
-                            //we got an error
-                            print(error);
+                            if (error != null) {
+                              //we got an error
+                              print(error);
 
-                            setState(() {
-                              loadingPayment = false;
-                            });
-                          } else {
-                            var url = ds.get('url');
-
-                            var res = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        CheckoutPage(url: url)));
-
-                            if (res == 'sucess') {
-                              print('payment completed');
                               setState(() {
                                 loadingPayment = false;
                               });
-                              //payment completed
                             } else {
-                              print('payment failed');
-                              //payment failed
-                              setState(() {
-                                loadingPayment = false;
-                              });
+                              var url = ds.get('url');
+
+                              var res = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CheckoutPage(url: url)));
+
+                              if (res == 'sucess') {
+                                print('payment completed');
+                                setState(() {
+                                  loadingPayment = false;
+                                });
+                                //payment completed
+                              } else {
+                                print('payment failed');
+                                //payment failed
+                                setState(() {
+                                  loadingPayment = false;
+                                });
+                              }
                             }
                           }
-                        }
-                      });
-                    },
-                    child: Text(
-                      'Choose Plan',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 18),
+                        });
+                      },
+                      child: Text(
+                        'Choose Plan',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 18),
+                      )),
+                ),
+              if (subscriptionStatus.subIsActive)
+                SizedBox(
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: c1),
+                      child: Text(
+                        'Manage Subcription',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 18),
+                      ),
+                      onPressed: () {
+                        customerPortal();
+                      },
                     )),
-              ),
               SizedBox(
                 height: 40,
               ),
@@ -418,5 +475,21 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  customerPortal() async {
+    HttpsCallable callable = FirebaseFunctions.instance
+        .httpsCallable('ext-firestore-stripe-payments-createPortalLink');
+
+    HttpsCallableResult result =
+        await callable.call({'returnUrl': 'https://cancel.com'});
+
+    print(result.data);
+
+    if (result.data != null) {
+      var url = result.data['url'];
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => CustomerPortal(url: url)));
+    }
   }
 }
