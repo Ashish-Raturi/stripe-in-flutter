@@ -220,6 +220,10 @@ class _HomePageState extends State<HomePage> {
                             .doc(widget.uid)
                             .collection('checkout_sessions')
                             .add({
+                          'tax_rates': [
+                            'txr_1KygcIAJeZ68JXhmn9gHnJbW',
+                            'txr_1Js6RYAJeZ68JXhm7ym2dkp3'
+                          ],
                           'price': stripeData.sub1priceId,
                           'success_url': 'http://localhost:56640/#/',
                           'cancel_url': 'http://localhost:56640/#/',
