@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +9,8 @@ import 'package:stripe/color.dart';
 import 'package:stripe/customer_portal.dart';
 import 'package:stripe/service/stripe_data.dart';
 import 'package:stripe/service/user_db_service.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:html' as html;
 
 class HomePage extends StatefulWidget {
   final String uid;
@@ -217,8 +221,8 @@ class _HomePageState extends State<HomePage> {
                             .collection('checkout_sessions')
                             .add({
                           'price': stripeData.sub1priceId,
-                          'success_url': 'https://success.com',
-                          'cancel_url': 'https://cancel.com',
+                          'success_url': 'http://localhost:56640/#/',
+                          'cancel_url': 'http://localhost:56640/#/',
                         });
 
                         docRef.snapshots().listen((ds) async {
@@ -241,25 +245,32 @@ class _HomePageState extends State<HomePage> {
                               });
                             } else {
                               var url = ds.get('url');
-
-                              var res = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          CheckoutPage(url: url)));
-
-                              if (res == 'sucess') {
-                                print('payment completed');
+                              if (kIsWeb) {
+                                //open url in new tab
+                                html.window.open(url, 'new tab');
                                 setState(() {
                                   loadingPayment = false;
                                 });
-                                //payment completed
                               } else {
-                                print('payment failed');
-                                //payment failed
-                                setState(() {
-                                  loadingPayment = false;
-                                });
+                                var res = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            CheckoutPage(url: url)));
+
+                                if (res == 'sucess') {
+                                  print('payment completed');
+                                  setState(() {
+                                    loadingPayment = false;
+                                  });
+                                  //payment completed
+                                } else {
+                                  print('payment failed');
+                                  //payment failed
+                                  setState(() {
+                                    loadingPayment = false;
+                                  });
+                                }
                               }
                             }
                           }
@@ -391,8 +402,8 @@ class _HomePageState extends State<HomePage> {
                             .collection('checkout_sessions')
                             .add({
                           'price': stripeData.sub2priceId,
-                          'success_url': 'https://success.com',
-                          'cancel_url': 'https://cancel.com',
+                          'success_url': 'http://localhost:56640/#/',
+                          'cancel_url': 'http://localhost:56640/#/',
                         });
 
                         docRef.snapshots().listen((ds) async {
@@ -415,25 +426,32 @@ class _HomePageState extends State<HomePage> {
                               });
                             } else {
                               var url = ds.get('url');
-
-                              var res = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          CheckoutPage(url: url)));
-
-                              if (res == 'sucess') {
-                                print('payment completed');
+                              if (kIsWeb) {
+                                //open url in new tab
+                                html.window.open(url, 'new tab');
                                 setState(() {
                                   loadingPayment = false;
                                 });
-                                //payment completed
                               } else {
-                                print('payment failed');
-                                //payment failed
-                                setState(() {
-                                  loadingPayment = false;
-                                });
+                                var res = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            CheckoutPage(url: url)));
+
+                                if (res == 'sucess') {
+                                  print('payment completed');
+                                  setState(() {
+                                    loadingPayment = false;
+                                  });
+                                  //payment completed
+                                } else {
+                                  print('payment failed');
+                                  //payment failed
+                                  setState(() {
+                                    loadingPayment = false;
+                                  });
+                                }
                               }
                             }
                           }
@@ -488,8 +506,13 @@ class _HomePageState extends State<HomePage> {
 
     if (result.data != null) {
       var url = result.data['url'];
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => CustomerPortal(url: url)));
+      if (kIsWeb) {
+        //open url in new tab
+        html.window.open(url, 'new tab');
+      } else {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => CustomerPortal(url: url)));
+      }
     }
   }
 }

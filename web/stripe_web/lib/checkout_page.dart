@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -14,18 +16,18 @@ class _CheckoutPageState extends State<CheckoutPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: WebView(
-            initialUrl: widget.url,
-            javascriptMode: JavascriptMode.unrestricted,
-            navigationDelegate: (NavigationRequest request) {
-              if (request.url.startsWith('https://success.com')) {
-                Navigator.of(context).pop('success'); // <-- Handle success case
-              } else if (request.url.startsWith('https://cancel.com')) {
-                Navigator.of(context).pop('cancel'); // <-- Handle cancel case
-              }
-              return NavigationDecision.navigate;
-            }),
-      ),
+          body: WebView(
+              initialUrl: widget.url,
+              javascriptMode: JavascriptMode.unrestricted,
+              navigationDelegate: (NavigationRequest request) {
+                if (request.url.startsWith('https://success.com')) {
+                  Navigator.of(context)
+                      .pop('success'); // <-- Handle success case
+                } else if (request.url.startsWith('https://cancel.com')) {
+                  Navigator.of(context).pop('cancel'); // <-- Handle cancel case
+                }
+                return NavigationDecision.navigate;
+              })),
     );
   }
 }
