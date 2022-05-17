@@ -39,7 +39,6 @@ dependencies:
   cloud_firestore: ^3.1.10
   webview_flutter: ^3.0.2
   firebase_auth: ^3.3.17
-  google_sign_in: ^5.3.0
   cloud_functions: ^3.2.9
 
 
