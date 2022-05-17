@@ -135,11 +135,7 @@ androidx/webkit/WebViewClientCompat$SafeBrowsingThreat.class
 androidx/webkit/WebViewFeature$WebViewSupportFeature.class
 androidx/window/core/ExperimentalWindowApi.class
 androidx/window/embedding/SplitRule$LayoutDir.class
-com/google/android/gms/auth/api/accounttransfer/AuthenticatorTransferCompletionStatus.class
-com/google/android/gms/auth/api/credentials/Credential.class
-com/google/android/gms/auth/api/credentials/CredentialPickerConfig$Prompt.class
 com/google/android/gms/auth/api/phone/SmsCodeAutofillClient$PermissionState.class
-com/google/android/gms/auth/api/proxy/ProxyApi$SpatulaHeaderResult.class
 com/google/android/gms/cloudmessaging/CloudMessage$MessagePriority.class
 com/google/android/gms/common/SignInButton$ButtonSize.class
 com/google/android/gms/common/SignInButton$ColorScheme.class
@@ -153,7 +149,6 @@ com/google/android/gms/common/api/GoogleApiClient$ConnectionCallbacks.class
 com/google/android/gms/common/api/GoogleApiClient$OnConnectionFailedListener.class
 com/google/android/gms/common/api/GoogleApiClient.class
 com/google/android/gms/common/api/HasApiKey.class
-com/google/android/gms/common/api/Result.class
 com/google/android/gms/common/api/internal/ConnectionCallbacks.class
 com/google/android/gms/common/api/internal/GoogleApiManager.class
 com/google/android/gms/common/api/internal/OnConnectionFailedListener.class
@@ -168,9 +163,7 @@ com/google/android/gms/common/api/internal/zau.class
 com/google/android/gms/common/internal/Asserts.class
 com/google/android/gms/common/internal/HideFirstParty.class
 com/google/android/gms/common/internal/Preconditions.class
-com/google/android/gms/common/internal/ReflectedParcelable.class
 com/google/android/gms/common/internal/ShowFirstParty.class
-com/google/android/gms/common/internal/safeparcel/AbstractSafeParcelable.class
 com/google/android/gms/common/internal/safeparcel/SafeParcelable$Class.class
 com/google/android/gms/common/internal/safeparcel/SafeParcelable$Constructor.class
 com/google/android/gms/common/internal/safeparcel/SafeParcelable$Field.class
@@ -178,13 +171,11 @@ com/google/android/gms/common/internal/safeparcel/SafeParcelable$Indicator.class
 com/google/android/gms/common/internal/safeparcel/SafeParcelable$Param.class
 com/google/android/gms/common/internal/safeparcel/SafeParcelable$Reserved.class
 com/google/android/gms/common/internal/safeparcel/SafeParcelable$VersionField.class
-com/google/android/gms/common/internal/safeparcel/SafeParcelable.class
 com/google/android/gms/common/internal/zak.class
 com/google/android/gms/common/util/DynamiteApi.class
 com/google/android/gms/common/util/RetainForClient.class
 com/google/android/gms/common/util/Strings.class
 com/google/android/gms/common/util/VisibleForTesting.class
-com/google/android/gms/internal/auth/zzbv.class
 com/google/android/gms/stats/CodePackage.class
 com/google/common/annotations/Beta.class
 com/google/common/annotations/GwtCompatible.class

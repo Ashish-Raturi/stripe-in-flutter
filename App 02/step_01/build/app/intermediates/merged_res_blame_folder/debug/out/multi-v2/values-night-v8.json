@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/step_01/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
+            "outputFile": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/code/App 02/step_01/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/step_01/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/code/App 02/step_01/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

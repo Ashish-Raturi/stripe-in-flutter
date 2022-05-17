@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/step_01/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-lt/values-lt.xml",
+            "outputFile": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/code/App 02/step_01/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-lt/values-lt.xml",
             "map": [
                 {
                     "source": "/Users/ashishraturi/.gradle/caches/transforms-2/files-2.1/de41bf24a3317a8d85eaf62f22072618/jetified-play-services-base-18.0.1/res/values-lt/values.xml",
