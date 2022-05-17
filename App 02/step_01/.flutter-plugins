@@ -1,0 +1,16 @@
+# This is a generated file; do not edit or check into version control.
+cloud_firestore=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-3.1.11/
+cloud_firestore_web=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-2.6.11/
+cloud_functions=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_functions-3.2.14/
+cloud_functions_web=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_functions_web-4.2.13/
+firebase_auth=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-3.3.17/
+firebase_auth_web=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-3.3.14/
+firebase_core=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.14.0/
+firebase_core_web=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.3/
+google_sign_in=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in-5.3.0/
+google_sign_in_android=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_android-5.2.6/
+google_sign_in_ios=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_ios-5.2.6/
+google_sign_in_web=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_web-0.10.1/
+webview_flutter=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter-3.0.2/
+webview_flutter_android=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_android-2.8.6/
+webview_flutter_wkwebview=/Users/ashishraturi/development/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_wkwebview-2.7.3/

@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/step_01/build/google_sign_in_android/intermediates/res/merged/debug/drawable-xxhdpi-v4/googleg_disabled_color_18.png",
+        "source": "/Users/ashishraturi/.gradle/caches/transforms-2/files-2.1/de41bf24a3317a8d85eaf62f22072618/jetified-play-services-base-18.0.1/res/drawable-xxhdpi-v4/googleg_disabled_color_18.png"
+    },
+    {
+        "merged": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/step_01/build/google_sign_in_android/intermediates/res/merged/debug/drawable-xxhdpi-v4/googleg_standard_color_18.png",
+        "source": "/Users/ashishraturi/.gradle/caches/transforms-2/files-2.1/de41bf24a3317a8d85eaf62f22072618/jetified-play-services-base-18.0.1/res/drawable-xxhdpi-v4/googleg_standard_color_18.png"
+    },
+    {
+        "merged": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/step_01/build/google_sign_in_android/intermediates/res/merged/debug/drawable-xxhdpi-v4/common_google_signin_btn_icon_dark_normal_background.9.png",
+        "source": "/Users/ashishraturi/.gradle/caches/transforms-2/files-2.1/de41bf24a3317a8d85eaf62f22072618/jetified-play-services-base-18.0.1/res/drawable-xxhdpi-v4/common_google_signin_btn_icon_dark_normal_background.9.png"
+    },
+    {
+        "merged": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/step_01/build/google_sign_in_android/intermediates/res/merged/debug/drawable-xxhdpi-v4/common_google_signin_btn_text_light_normal_background.9.png",
+        "source": "/Users/ashishraturi/.gradle/caches/transforms-2/files-2.1/de41bf24a3317a8d85eaf62f22072618/jetified-play-services-base-18.0.1/res/drawable-xxhdpi-v4/common_google_signin_btn_text_light_normal_background.9.png"
+    },
+    {
+        "merged": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/step_01/build/google_sign_in_android/intermediates/res/merged/debug/drawable-xxhdpi-v4/common_google_signin_btn_text_dark_normal_background.9.png",
+        "source": "/Users/ashishraturi/.gradle/caches/transforms-2/files-2.1/de41bf24a3317a8d85eaf62f22072618/jetified-play-services-base-18.0.1/res/drawable-xxhdpi-v4/common_google_signin_btn_text_dark_normal_background.9.png"
+    },
+    {
+        "merged": "/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/step_01/build/google_sign_in_android/intermediates/res/merged/debug/drawable-xxhdpi-v4/common_google_signin_btn_icon_light_normal_background.9.png",
+        "source": "/Users/ashishraturi/.gradle/caches/transforms-2/files-2.1/de41bf24a3317a8d85eaf62f22072618/jetified-play-services-base-18.0.1/res/drawable-xxhdpi-v4/common_google_signin_btn_icon_light_normal_background.9.png"
+    }
+]

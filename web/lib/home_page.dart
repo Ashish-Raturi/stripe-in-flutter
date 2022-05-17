@@ -46,38 +46,38 @@ class _HomePageState extends State<HomePage> {
     return StreamBuilder<UserData>(
         stream: UserDbService(uid: widget.uid).fetchUserData,
         builder: (context, snapshot) {
-          if (snapshot.hasData == false) {
-            return loading('Loading User Data...');
-          }
+          // if (snapshot.hasData == false) {
+          //   return loading('Loading User Data...');
+          // }
 
           UserData userData = snapshot.data!;
           return FutureBuilder<StripeData>(
               future: fetchStripeData(),
               builder: (context, snapshot) {
-                if (snapshot.hasData == false) {
-                  return loading('Loading Stripe Data...');
-                }
+                // if (snapshot.hasData == false) {
+                //   return loading('Loading Stripe Data...');
+                // }
 
                 stripeData = snapshot.data!;
                 print(stripeData.sub1priceId);
 
-                if (loadingPayment) return loading('Processing payment...');
+                // if (loadingPayment) return loading('Processing payment...');
 
                 return StreamBuilder<SubscriptionStatus>(
                     stream:
                         UserDbService(uid: widget.uid, stripeData: stripeData)
                             .checkSubscriptionIsActive,
                     builder: (context, snapshot) {
-                      if (snapshot.hasData == false) {
-                        return loading('Checking Subscription Status...');
-                      }
+                      // if (snapshot.hasData == false) {
+                      //   return loading('Checking Subscription Status...');
+                      // }
 
                       subscriptionStatus = snapshot.data!;
                       return Scaffold(
                         backgroundColor: c2,
                         appBar: AppBar(
                           title: Text(
-                            'Hi, ${userData.username}',
+                            'Hi, Ashish Raturi',
                             style: TextStyle(color: Colors.black),
                           ),
                           backgroundColor: c2,
