@@ -14,11 +14,21 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: WebView(
+    return SafeArea(
+      child: Scaffold(
+          body: WebView(
         initialUrl: widget.url,
         javascriptMode: JavascriptMode.unrestricted,
-      ),
+        navigationDelegate: (NavigationRequest request) {
+          if (request.url.startsWith('https://success.com')) {
+            Navigator.pop(context, 'success');
+          } else if (request.url.startsWith('https://cancel.com')) {
+            Navigator.pop(context, 'cancel');
+          }
+
+          return NavigationDecision.navigate;
+        },
+      )),
     );
   }
 }

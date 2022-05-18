@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:stripe/previous_purhcase.dart';
 import 'package:stripe/service/fetch_product_details.dart';
+import 'package:stripe/shared/checkout_page.dart';
 import 'package:stripe/shared/show_loading.dart';
 
 class Homepage extends StatefulWidget {
@@ -13,8 +16,11 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  bool loadingPayment = false;
   @override
   Widget build(BuildContext context) {
+    if (loadingPayment) return loading("Processing payment...");
+
     return FutureBuilder<List<ProductDetials>>(
         future: featchProductDetails(),
         builder: (context, snapshot) {
@@ -32,6 +38,19 @@ class _HomepageState extends State<Homepage> {
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 elevation: 0,
                 actions: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PreviousPurchase(
+                                      prodctDetailsLst: productDetails,
+                                    )));
+                      },
+                      icon: Icon(
+                        Icons.history,
+                        color: Colors.black,
+                      )),
                   IconButton(
                       onPressed: () async {
                         await FirebaseAuth.instance.signOut();
@@ -159,7 +178,10 @@ class _HomepageState extends State<Homepage> {
                         child: ElevatedButton(
                             style:
                                 ElevatedButton.styleFrom(primary: Colors.black),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pop(context);
+                              buyStuff(pd);
+                            },
                             child: Text('Pay ${calculateTotalPrice(pd)}')))
                   ],
                 ),
@@ -167,6 +189,86 @@ class _HomepageState extends State<Homepage> {
             );
           });
         });
+  }
+
+  buyStuff(ProductDetials pd) async {
+    setState(() {
+      loadingPayment = true;
+    });
+    String userUid = FirebaseAuth.instance.currentUser!.uid;
+    var docRef = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userUid)
+        .collection('checkout_sessions')
+        .add({
+      'price': pd.priceId,
+      'quantity': pd.quatity,
+      'mode': 'payment',
+      'success_url': 'https://success.com',
+      'cancel_url': 'https://cancel.com'
+    });
+
+    docRef.snapshots().listen((ds) async {
+      if (ds.exists) {
+        //check any error
+        var error;
+
+        try {
+          error = ds.get('error');
+        } catch (e) {
+          error = null;
+        }
+
+        if (error != null) {
+          //show a dialog for error message
+          print(error);
+        } else {
+          String url = ds.get('url');
+
+          var res = await Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CheckoutPage(url: url)));
+
+          if (res == 'success') {
+            //payment successfull
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Payment Successfull'),
+                    actions: [
+                      TextButton(
+                          child: Text('ok'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          })
+                    ],
+                  );
+                });
+          } else {
+            //payment failed
+
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Payment failed'),
+                    actions: [
+                      TextButton(
+                          child: Text('ok'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          })
+                    ],
+                  );
+                });
+          }
+        }
+
+        setState(() {
+          loadingPayment = false;
+        });
+      }
+    });
   }
 
   calculateTotalPrice(ProductDetials pd) {
