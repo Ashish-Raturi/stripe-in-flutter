@@ -63,7 +63,10 @@ class _PreviousPurchaseState extends State<PreviousPurchase> {
 
                         if (productDetials == null) return SizedBox();
                         return ListTile(
-                            leading: Image.network(productDetials.imageUrl),
+                            leading: SizedBox(
+                                height: 60,
+                                width: 60,
+                                child: Image.network(productDetials.imageUrl)),
                             title: Text(
                               productDetials.name,
                               style: TextStyle(

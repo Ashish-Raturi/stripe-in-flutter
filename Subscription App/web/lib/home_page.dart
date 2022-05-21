@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:stripe/checkout_page.dart';
 import 'package:stripe/color.dart';
@@ -10,7 +11,7 @@ import 'package:stripe/customer_portal.dart';
 import 'package:stripe/service/stripe_data.dart';
 import 'package:stripe/service/user_db_service.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'dart:html' as html;
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   final String uid;
@@ -43,6 +44,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // FirebaseAuth.instance.signOut();
     return StreamBuilder<UserData>(
         stream: UserDbService(uid: widget.uid).fetchUserData,
         builder: (context, snapshot) {
@@ -50,27 +52,27 @@ class _HomePageState extends State<HomePage> {
           //   return loading('Loading User Data...');
           // }
 
-          UserData userData = snapshot.data!;
+          // UserData userData = snapshot.data!;
           return FutureBuilder<StripeData>(
               future: fetchStripeData(),
               builder: (context, snapshot) {
-                // if (snapshot.hasData == false) {
-                //   return loading('Loading Stripe Data...');
-                // }
+                if (snapshot.hasData == false) {
+                  return loading('Loading Stripe Data...');
+                }
 
                 stripeData = snapshot.data!;
                 print(stripeData.sub1priceId);
 
-                // if (loadingPayment) return loading('Processing payment...');
+                if (loadingPayment) return loading('Processing payment...');
 
                 return StreamBuilder<SubscriptionStatus>(
                     stream:
                         UserDbService(uid: widget.uid, stripeData: stripeData)
                             .checkSubscriptionIsActive,
                     builder: (context, snapshot) {
-                      // if (snapshot.hasData == false) {
-                      //   return loading('Checking Subscription Status...');
-                      // }
+                      if (snapshot.hasData == false) {
+                        return loading('Checking Subscription Status...');
+                      }
 
                       subscriptionStatus = snapshot.data!;
                       return Scaffold(
@@ -182,15 +184,11 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        '\Unlimited For 1 Month',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      Text('\Unlimited For 1 Month',
+                          style: TextStyle(
+                            color: Colors.white,
+                          )),
+                      SizedBox(height: 20),
                       Text(
                         'No Commitments - Cancel Anytime',
                         style: TextStyle(
@@ -251,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                               var url = ds.get('url');
                               if (kIsWeb) {
                                 //open url in new tab
-                                html.window.open(url, 'new tab');
+                                launchUrl(url);
                                 setState(() {
                                   loadingPayment = false;
                                 });
@@ -432,7 +430,7 @@ class _HomePageState extends State<HomePage> {
                               var url = ds.get('url');
                               if (kIsWeb) {
                                 //open url in new tab
-                                html.window.open(url, 'new tab');
+                                launchUrl(url);
                                 setState(() {
                                   loadingPayment = false;
                                 });
@@ -512,7 +510,7 @@ class _HomePageState extends State<HomePage> {
       var url = result.data['url'];
       if (kIsWeb) {
         //open url in new tab
-        html.window.open(url, 'new tab');
+        launchUrl(url);
       } else {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => CustomerPortal(url: url)));

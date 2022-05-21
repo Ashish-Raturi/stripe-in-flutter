@@ -1,0 +1,10 @@
+#Sat May 21 00:31:48 IST 2022
+base.2=/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/code/Subscription App/web/build/app/intermediates/dex/debug/mergeDexDebug/classes3.dex
+path.2=classes3.dex
+base.1=/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/code/Subscription App/web/build/app/intermediates/dex/debug/mergeDexDebug/classes2.dex
+path.1=classes2.dex
+base.0=/Users/ashishraturi/ar work/Flutter work/Projects/Courses/03. Flutter Stripe Subscription/code/Subscription App/web/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+path.0=classes.dex

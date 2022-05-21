@@ -15,6 +15,7 @@ class SigninPage extends StatefulWidget {
 class _SigninPageState extends State<SigninPage> {
   late String email;
   late String password;
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
