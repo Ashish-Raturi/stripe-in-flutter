@@ -8,7 +8,7 @@ import 'package:stripe/service/fetch_product_details.dart';
 import 'package:stripe/shared/checkout_page.dart';
 import 'package:stripe/shared/show_loading.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'dart:html' as html;
+import 'package:url_launcher/url_launcher.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -236,7 +236,7 @@ class _HomepageState extends State<Homepage> {
           if (kIsWeb) {
             //open url in new tab
 
-            html.window.open(url, 'new tab');
+            launchUrl(Uri.parse(url));
           } else {
             var res = await Navigator.push(
                 context,

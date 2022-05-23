@@ -41,6 +41,8 @@ dependencies:
   firebase_auth: ^3.3.17
   cloud_functions: ^3.2.9
 
+  url_launcher: ^6.1.2
+
 
 
 dev_dependencies:

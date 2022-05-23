@@ -249,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                               var url = ds.get('url');
                               if (kIsWeb) {
                                 //open url in new tab
-                                launchUrl(url);
+                                launchUrl(Uri.parse(url));
                                 setState(() {
                                   loadingPayment = false;
                                 });
@@ -430,7 +430,7 @@ class _HomePageState extends State<HomePage> {
                               var url = ds.get('url');
                               if (kIsWeb) {
                                 //open url in new tab
-                                launchUrl(url);
+                                launchUrl(Uri.parse(url));
                                 setState(() {
                                   loadingPayment = false;
                                 });
@@ -510,7 +510,7 @@ class _HomePageState extends State<HomePage> {
       var url = result.data['url'];
       if (kIsWeb) {
         //open url in new tab
-        launchUrl(url);
+        launchUrl(Uri.parse(url));
       } else {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => CustomerPortal(url: url)));
