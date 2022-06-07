@@ -1,4 +1,4 @@
-![Showcaes View - Simform LLC.](https://github.com/Ashish-Raturi/images/blob/master/Cover_Page.jpg)
+![Showcaes View - Simform LLC.](https://github.com/Ashish-Raturi/images/blob/master/stripe_course_cover_image.jpg)
 
 
 # Stripe One Time Payment & Subscription in Flutter App [2022]
