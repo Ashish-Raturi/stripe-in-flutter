@@ -8,11 +8,9 @@ Udemy Course [LINK](https://www.udemy.com/course/stripe-one-time-payment-subscri
 
 --------------------------------------------------------------
 
-UPTO 50% OFF (NEW USERS) FOR A LIMITED TIME
+UPTO MORE THEN 50% OFF
 
-CODE - NEW_USER_DISCOUNT
-
-LINK - https://www.udemy.com/course/stripe-one-time-payment-subscription-in-flutter-app-2022/?couponCode=NEW_USER_DISCOUNT
+LINK - https://www.udemy.com/course/flutter-in-app-consumable-non-consumable-purchase-2022/?couponCode=3987B26779B77EC9E5E6
 
 --------------------------------------------------------------
 
