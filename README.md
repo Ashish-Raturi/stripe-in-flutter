@@ -4,11 +4,10 @@
 # Stripe One Time Payment & Subscription in Flutter App [2022]
 Add Stripe One Time Payment and Subscription in your Flutter Mobile and Web app . Using Firebase & Flutter Only.
 
-Udemy Course [LINK](https://www.udemy.com/course/stripe-one-time-payment-subscription-in-flutter-app-2022/?referralCode=4CEFEF0ADE1FF3CE0680)
-
 --------------------------------------------------------------
+Udemy Course
 
-UPTO MORE THEN 50% OFF
+50% OFF OR MORE
 
 LINK - https://www.udemy.com/course/flutter-in-app-consumable-non-consumable-purchase-2022/?couponCode=3987B26779B77EC9E5E6
 
