@@ -1,7 +1,7 @@
 [<img src="https://github.com/Ashish-Raturi/images/blob/master/stripe_course_cover_image.jpg">](https://www.udemy.com/course/flutter-in-app-consumable-non-consumable-purchase-2022/?couponCode=3987B26779B77EC9E5E6)
 
 # Stripe One Time Payment & Subscription in Flutter App [2022]
-Add Stripe One Time Payment and Subscription in your Flutter Mobile and Web app . Using Firebase & Flutter Only.
+Add Stripe One Time Payment and Subscription in your Flutter Mobile and Web app. Using Firebase & Flutter Only.
 
 --------------------------------------------------------------
 Udemy Course
